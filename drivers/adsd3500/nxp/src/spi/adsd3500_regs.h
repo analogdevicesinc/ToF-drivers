@@ -11,6 +11,8 @@
 
 #include <linux/bitfield.h>
 
+#define DRIVER_VERSION				"6.1.0"
+
 #define REVERSE_SHORT(x) ((0x0000FF00 & x << 8) | (0x000000FF & x >> 8))
 #define REVERSE_LONG(x) ( ((x&0xff000000)>>24) | (((x&0x00ff0000)<<8)>>16) | (((x&0x0000ff00)>>8)<<16) | ((x&0x000000ff) << 24) )
 
