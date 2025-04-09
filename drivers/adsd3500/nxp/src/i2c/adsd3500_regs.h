@@ -11,6 +11,8 @@
 
 #include <linux/bitfield.h>
 
+#define DRIVER_VERSION 				"6.1.0"
+
 #define GET_CHIP_ID_CMD						0x0112
 
 #define STREAM_ON_CMD						0x00AD
