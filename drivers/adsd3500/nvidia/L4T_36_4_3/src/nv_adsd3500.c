@@ -1049,3 +1049,4 @@ module_i2c_driver(adsd3500_i2c_driver);
 MODULE_DESCRIPTION("Analog Devices ADSD3500 Driver");
 MODULE_AUTHOR("Bogdan Togorean");
 MODULE_LICENSE("GPL v2");
+MODULE_VERSION(DRIVER_VERSION);
