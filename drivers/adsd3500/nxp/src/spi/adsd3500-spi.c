@@ -2011,3 +2011,4 @@ module_spi_driver(adsd3500_spi_driver);
 MODULE_DESCRIPTION("Analog Devices ADI ADSD3500 SPI Driver");
 MODULE_AUTHOR("Analog Devices Inc");
 MODULE_LICENSE("GPL v2");
+MODULE_VERSION(DRIVER_VERSION);
