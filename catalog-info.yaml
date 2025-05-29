@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  title: ADI ToF ADSD3500 V4L2 Driver 6.1.0
+  name: adi-tof-adsd3500-v4l2-driver-6.1.0
+  version: 6.1.0
+  description: The ADSD3500 V4L2 Camera Sensor Driver for Linux.
+  classification: software
+  license:
+    - GPL-2.0-only
+  links: []
+  tags:
+    - linux
+    - v4l2
+  annotations:
+    backstage.io/source-location: url:https://github.com/analogdevicesinc/ToF-drivers/tree/dev-6.1.0
+spec:
+  type: source
+  lifecycle: execution
+  owner: user:default/astraker
+  subcomponentOf: component:default/adi-tof-adsd3500-v4l2-driver-main
