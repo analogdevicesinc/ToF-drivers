@@ -11,7 +11,7 @@
 
 #include <linux/bitfield.h>
 
-#define DRIVER_VERSION 				"6.1.0"
+#define DRIVER_VERSION                          	"6.1.0"
 
 #define GET_CHIP_ID_CMD						0x0112
 
@@ -50,6 +50,11 @@
 
 #define SET_FRAMERATE_CMD                   0x0022
 #define GET_FRAMERATE_CMD                   0x0023
+#define ENABLE_FSYNC_TRIGGER                            0x0025
+#define FSYNC_STOP                                      0x0000
+#define FSYNC_START                                     0x0001
+#define FSYNC_HIZ_STATE                                 0x0002
+
 
 #define READ_REGISTER_CMD					0xFFFF
 #define WRITE_REGISTER_CMD					0xFFFF
@@ -58,6 +63,7 @@
 #define SWITCH_TO_BURST_VAL         	    0x0000
 
 #define ADSD3500_CHIP_ID					0x5931
+#define ADSD3500_DEFAULT_FPS            	10
 #define USER_TASK 				_IOW('A',1,int32_t*)
 #define SIGETX 					44
 #define ADSD3500_FIRMWARE			"adi/adsd3500-fw.bin"
