@@ -1414,17 +1414,18 @@ static int adsd3500_start_streaming(struct adsd3500 *adsd3500)
 	unsigned int write_cmd;
 	int ret;
 
+	if(adsd3500->pwm_fsync != NULL && adsd3500->curr_sync_mode == FSYNC_HIZ_STATE ){
+		ret = pwm_enable(adsd3500->pwm_fsync);
+		if (ret){
+			dev_err(adsd3500->dev, "Could not enable FSYNC PWM\n");
+			return ret;
+		}
+	}
+
 	write_cmd = REVERSE_LONG(STREAM_ON_CMD);
 	ret = adsd3500_regmap_write(client, &write_cmd, sizeof(unsigned int));
 	if (ret < 0)
 		dev_err(adsd3500->dev, "Write of STREAM-ON command failed.\n");
-
-	if(adsd3500->pwm_fsync != NULL && adsd3500->curr_sync_mode == FSYNC_HIZ_STATE ){
-		ret = pwm_enable(adsd3500->pwm_fsync);
-		if (ret)
-			dev_err(adsd3500->dev, "Could not enable FSYNC PWM\n");
-		return ret;
-	}
 
 	return ret;
 }
