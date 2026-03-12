@@ -1,0 +1,86 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "brcm,bcm2712";
+
+    fragment@0 {
+        target = <&i2c_csi_dsi0>;
+        __overlay__ {
+            #address-cells = <1>;
+            #size-cells = <0>;
+            status = "okay";
+	    clock-frequency = <1000000>;
+
+            cam0_sensor: adsd3500@38 {
+                compatible = "adi,adsd3500";
+                reg = <0x38>;
+                status = "okay";
+		interrupt-gpios = <&rp1_gpio 35 0>;
+		pwms = <&pwm 0 50000000>; /* PWM for fsync */
+		pwm-names = "fsync";
+                port {
+                    cam0_sensor_ep: endpoint {
+                        remote-endpoint = <&csi0_ep>;
+                        data-lanes = <1 2>;
+                        clock-lanes = <0>;
+                        link-frequencies = /bits/ 64 <732000000>;
+                    };
+                };
+            };
+        };
+    };
+
+    fragment@1 {
+        target = <&csi0>;
+        __overlay__ {
+            status = "okay";
+
+            port {
+                csi0_ep: endpoint {
+                    remote-endpoint = <&cam0_sensor_ep>;
+                    clock-lanes = <0>;
+                    data-lanes = <1 2>;
+                    clock-noncontinuous;
+                };
+            };
+        };
+    };
+
+    fragment@2 {
+        target = <&i2c_csi_dsi0>;
+        __overlay__ {
+            gpio@68 {
+                compatible = "maxim,max7327";
+                reg = <0x68>;
+                status = "okay";
+                gpio-controller;
+                #gpio-cells = <2>;
+                gpio-line-names = "EN_1P8", "EN_0P8", "P2", "I2CM_SEL",
+                                  "ISP_BS3/ISP_INT", "NET_HOST_IO_SEL", "ISP_BS0",
+                                  "ISP_BS1", "HOST_IO_DIR", "ISP_BS4", "ISP_BS5",
+                                  "FSYNC_DIR", "EN_VAUX", "EN_VAUX_LS", "EN_SYS";
+            };
+        };
+    };
+
+    fragment@3 {
+	target-path = "/";
+	__overlay__ {
+		pwm: pwm-gpio {
+			compatible = "pwm-gpio";
+			#pwm-cells = <2>;
+			status = "okay";
+			pwm-gpios = <&rp1_gpio 35 0>;  /* CAM0_CLK GPIO */
+		};
+	};
+    };
+
+    fragment@4 {
+	target-path = "/chosen";
+	__overlay__ {
+		overlay-name = "adi_dual_adsd3500_adsd3100";
+	};
+    };
+};
