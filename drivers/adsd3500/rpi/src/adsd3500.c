@@ -794,6 +794,100 @@ static const struct adsd3500_mode_info adsd3500_mode_info_data[] = {
 		.link_freq_idx = 0 /* an index in link_freq_tbl[] */
 	},
 
+	/* --- RAW 8 MEDIA_BUS_FMT_SRGGB8_1X8 --- */
+
+	{       /* RAW8 ADSD3100 MP 16BPP Depth, 8BPP Conf as Interleaved and 16BPP AB as SuperFrame */
+		.width = 3072,
+		.height = 1707,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 MP 16BPP Depth, 8BPP Conf as Interleaved */
+		.width = 3072,
+		.height = 1024,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 MP 16BPP Depth, 8BPP Conf as Interleaved and 8BPP AB as SuperFrame */
+		.width = 3072,
+		.height = 1366,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 MP 12BPP Depth, 4BPP Conf as Interleaved */
+		.width = 2048,
+		.height = 1024,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 MP 16BPP Depth, 8BPP Conf as Interleaved and 12BPP AB as SuperFrame */
+		.width = 3072,
+		.height = 1536,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 MP 16BPP Depth, 4BPP Conf as Interleaved and 12BPP AB as SuperFrame */
+		.width = 2048,
+		.height = 1792,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 MP Depth and AB as Superframe (12BPP + 16BPP / 16BPP + 12BPP) */
+		.width = 1024,
+		.height = 3584,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 QMP 16BPP Depth, 8BPP Conf as Interleaved and 16BPP AB as SuperFrame */
+		.width = 1536,
+		.height = 854,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 QMP 16BPP Depth, Conf as Interleaved and 16BPP AB as SuperFrame */
+		.width = 1536,
+		.height = 683,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 QMP 12BPP Depth, 4BPP Conf as Interleaved and 8BPP AB as SuperFrame */
+		.width = 1024,
+		.height = 768,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 QMP 16BPP Depth, 8BPP Conf as Interleaved and 12BPP AB as SuperFrame*/
+		.width = 1536,
+		.height = 768,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 QMP 12BPP Depth, 4BPP Conf as Interleaved and 12BPP AB as SuperFrame */
+		.width = 1024,
+		.height = 896,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 QMP Depth and AB as Superframe (12BPP + 16BPP / 16BPP + 12BPP)*/
+		.width = 512,
+		.height = 1792,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+
 };
 
 static bool adsd3500_regmap_accessible_reg(struct device *dev, unsigned int reg)
@@ -1925,6 +2019,12 @@ static int adsd3500_probe(struct i2c_client *client)
 		ret = adsd3500_set_fsync_trigger(adsd3500, INTR_TRIGGER);
 		if(ret < 0)
 			dev_err(&client->dev, "Failed to initalize interrupt\n");
+	}
+	else {
+		ret = adsd3500_configure_interrupt(adsd3500);
+		if(ret < 0){
+			dev_err(&client->dev, "Failed to initalize interrupt\n");
+		}
 	}
 
 	memset(&adsd3500->fmt, 0, sizeof(adsd3500->fmt));
