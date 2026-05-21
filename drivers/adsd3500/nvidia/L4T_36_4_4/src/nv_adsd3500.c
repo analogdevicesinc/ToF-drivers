@@ -242,20 +242,20 @@ static irqreturn_t adsd3500_irq_handler(int irq,void *priv)
 /* Elements of the structure must be ordered ascending by width & height */
 static const struct adsd3500_mode_info adsd3500_mode_info_data[] = {
 
-	/* --- RAW 8 MEDIA_BUS_FMT_SBGGR8_1X8 --- */
+	/* --- RAW 8 MEDIA_BUS_FMT_SRGGB8_1X8 --- */
 
 	{	/* RAW8 8BPP ADSD3100 QMP RESOLUTION */
 		.width = 512,
 		.height = 512,
 		.pixel_rate = 488000000,
-		.code = MEDIA_BUS_FMT_SBGGR8_1X8,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
 		.link_freq_idx = 0 /* an index in link_freq_tbl[] */
 	},
 	{	/* RAW8 16BPP ADSD3100 QMP RESOLUTION */
 		.width = 1024,
 		.height = 512,
 		.pixel_rate = 488000000,
-		.code = MEDIA_BUS_FMT_SBGGR8_1X8,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
 		.link_freq_idx = 0 /* an index in link_freq_tbl[] */
 	},
 	{       /* RAW8 16BPP Phase 12BPP AB ADSD3100 - DUAL MP - (1024x1 1024x4) */
@@ -745,6 +745,100 @@ static const struct adsd3500_mode_info adsd3500_mode_info_data[] = {
 		.code = MEDIA_BUS_FMT_SRGGB12_1X12,
 		.link_freq_idx = 0 /* an index in link_freq_tbl[] */
 	},
+
+	/* --- RAW 8 MEDIA_BUS_FMT_SRGGB8_1X8 --- */
+	{       /* RAW8 ADSD3100 MP 16BPP Depth, 8BPP Conf as Interleaved and 16BPP AB as SuperFrame */
+		.width = 3072,
+		.height = 1707,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 MP 16BPP Depth, 8BPP Conf as Interleaved */
+		.width = 3072,
+		.height = 1024,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 MP 16BPP Depth, 8BPP Conf as Interleaved and 8BPP AB as SuperFrame */
+		.width = 3072,
+		.height = 1366,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 MP 12BPP Depth, 4BPP Conf as Interleaved */
+		.width = 2048,
+		.height = 1024,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 MP 16BPP Depth, 8BPP Conf as Interleaved and 12BPP AB as SuperFrame */
+		.width = 3072,
+		.height = 1536,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 MP 16BPP Depth, 4BPP Conf as Interleaved and 12BPP AB as SuperFrame */
+		.width = 2048,
+		.height = 1792,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 MP Depth and AB as Superframe (12BPP + 16BPP / 16BPP + 12BPP) */
+		.width = 1024,
+		.height = 3584,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 QMP 16BPP Depth, 8BPP Conf as Interleaved and 16BPP AB as SuperFrame */
+		.width = 1536,
+		.height = 854,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 QMP 16BPP Depth, Conf as Interleaved and 16BPP AB as SuperFrame */
+		.width = 1536,
+		.height = 683,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 QMP 12BPP Depth, 4BPP Conf as Interleaved and 8BPP AB as SuperFrame */
+		.width = 1024,
+		.height = 768,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 QMP 16BPP Depth, 8BPP Conf as Interleaved and 12BPP AB as SuperFrame*/
+		.width = 1536,
+		.height = 768,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 QMP 12BPP Depth, 4BPP Conf as Interleaved and 12BPP AB as SuperFrame */
+		.width = 1024,
+		.height = 896,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+	{       /* RAW8 ADSD3100 QMP Depth and AB as Superframe (12BPP + 16BPP / 16BPP + 12BPP)*/
+		.width = 512,
+		.height = 1792,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
+
 };
 
 static int adsd3500_set_frame_rate(struct adsd3500 *priv, s64 val);
@@ -1843,6 +1937,13 @@ static int adsd3500_probe(struct i2c_client *client,
 		if(ret < 0)
 			dev_err(&client->dev, "Failed to initalize interrupt\n");
 	}
+	else {
+		ret = adsd3500_configure_interrupt(priv);
+		if (ret < 0)
+			dev_err(&client->dev, "Failed to initalize interrupt\n");
+	}
+
+
 
 	priv->sd->internal_ops = &adsd3500_subdev_internal_ops;
 	priv->sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
