@@ -838,6 +838,13 @@ static const struct adsd3500_mode_info adsd3500_mode_info_data[] = {
 		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
 		.link_freq_idx = 0
 	},
+	{       /* RAW8 ADSD3100 MP */
+		.width = 1024,
+		.height = 3072,
+		.pixel_rate = 488000000,
+		.code = MEDIA_BUS_FMT_SRGGB8_1X8,
+		.link_freq_idx = 0
+	},
 
 };
 

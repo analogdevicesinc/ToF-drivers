@@ -84,6 +84,7 @@ enum {
 	ADSD3500_MODE_1536x768_30FPS,
 	ADSD3500_MODE_1024x896_30FPS,
 	ADSD3500_MODE_512x1792_30FPS,
+	ADSD3500_MODE_1024x3072_30FPS,
 };
 
 static const int adsd3500_30fps[] = {
@@ -168,7 +169,7 @@ static const struct camera_common_frmfmt adsd3500_frmfmt[] = {
 	{{2048, 5376}, adsd3500_30fps, 1, 0, ADSD3500_MODE_2048x5376_RAW12_30FPS},   // mode67
 	{{2048, 3584}, adsd3500_30fps, 1, 0, ADSD3500_MODE_2048x3584_RAW12_30FPS},   // mode68
 
-	/* RAW8 modes (69-81) */
+	/* RAW8 modes (69-82) */
 	{{3072, 1707}, adsd3500_30fps, 1, 0, ADSD3500_MODE_3072x1707_30FPS},   	     // mode69
 	{{3072, 1024}, adsd3500_30fps, 1, 0, ADSD3500_MODE_3072x1024_30FPS},         // mode70
 	{{3072, 1366}, adsd3500_30fps, 1, 0, ADSD3500_MODE_3072x1366_30FPS},   	     // mode71
@@ -182,6 +183,7 @@ static const struct camera_common_frmfmt adsd3500_frmfmt[] = {
 	{{1536, 768},  adsd3500_30fps, 1, 0, ADSD3500_MODE_1536x768_30FPS},          // mode79
 	{{1024, 896},  adsd3500_30fps, 1, 0, ADSD3500_MODE_1024x896_30FPS},          // mode80
 	{{512, 1792},  adsd3500_30fps, 1, 0, ADSD3500_MODE_512x1792_30FPS},          // mode81
+	{{1024, 3072}, adsd3500_30fps, 1, 0, ADSD3500_MODE_1024x3072_30FPS},         // mode82
 
 
 	/* Add modes with no device tree support after below */
