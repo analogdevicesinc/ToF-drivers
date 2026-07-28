@@ -1,0 +1,70 @@
+# ToF-drivers Test Agent Configuration
+# YAML format for agent customization
+
+# Docker configuration
+docker:
+  image_name: tof-driver-tests
+  base_image: ubuntu:20.04
+  build_jobs: auto  # or specific number
+  registry: ""  # Optional: private registry URL
+  
+# Test configuration
+tests:
+  v4l2_device: /dev/video0
+  i2c_device: /dev/i2c-1
+  default_priority: P1
+  timeout: 300  # seconds
+  
+  # Hardware requirements
+  hardware:
+    v4l2_required: false  # Skip if not available
+    i2c_required: false
+  
+  # Test categories to run
+  categories:
+    - V4L2
+    - I2C
+  
+  # Repeat configuration
+  default_repeat: 1
+  stress_test_repeat: 100
+
+# Output configuration
+output:
+  results_dir: test-results
+  logs_dir: test-logs
+  reports_dir: test-reports
+  
+  # Result formats
+  formats:
+    - json
+    - html
+    - csv
+  
+  # Retention
+  keep_last_n_results: 10
+  archive_old_results: true
+
+# Git integration
+git:
+  default_repo: ""
+  default_branch: main
+  clone_depth: 1
+  
+# CI/CD integration
+ci:
+  mode: local  # local, ci, or auto-detect
+  parallel_jobs: 4
+  fail_fast: false
+  
+  # Notifications (future)
+  notifications:
+    email: []
+    slack: ""
+
+# Agent behavior
+agent:
+  interactive: false
+  auto_clean: false
+  generate_report: true
+  upload_results: false
