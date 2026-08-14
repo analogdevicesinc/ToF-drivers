@@ -1556,18 +1556,19 @@ static int adsd3500_start_streaming(struct adsd3500 *adsd3500)
 
 	dev_info(adsd3500->dev, "%s\n", __func__);
 
+	ret = regmap_write(adsd3500->regmap, STREAM_ON_CMD, STREAM_ON_VAL);
+	if (ret < 0) {
+		dev_err(adsd3500->dev, "Write of STREAM-ON command failed.\n");
+		return ret;
+	}
+
 	if(adsd3500->pwm_fsync != NULL && adsd3500->curr_sync_mode == PWM_TRIGGER ){
+		msleep(5);
 		ret = pwm_enable(adsd3500->pwm_fsync);
 		if (ret) {
 			dev_err(adsd3500->dev, "Could not enable FSYNC PWM\n");
 			return ret;
 		}
-	}
-
-	ret = regmap_write(adsd3500->regmap, STREAM_ON_CMD, STREAM_ON_VAL);
-	if (ret < 0) {
-		dev_err(adsd3500->dev, "Write of STREAM-ON command failed.\n");
-		return ret;
 	}
 
 	return ret;
