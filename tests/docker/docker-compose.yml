@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  tof-driver-tests:
+    image: tof-driver-tests:latest
+    build:
+      context: ../../..
+      dockerfile: ToF-drivers/tests/docker/Dockerfile.local
+      args:
+        PREBUILD_TESTS: "OFF"  # Local dev mode by default
+        BUILD_JOBS: 4
+    
+    container_name: tof-driver-tests
+    
+    # Privileged mode required for hardware access
+    privileged: true
+    
+    # Device access
+    devices:
+      - /dev/video0:/dev/video0
+      - /dev/i2c-1:/dev/i2c-1
+    
+    # Volume mounts for test results and source code
+    volumes:
+      - ./test-results:/workspace/test-results:rw
+      - ./test-logs:/workspace/test-logs:rw
+      # Source code mounted for local development
+      - ../:/workspace/ToF-drivers/tests:rw
+    
+    # Network mode
+    network_mode: host
+    
+    # Environment variables
+    environment:
+      - GTEST_OUTPUT=json:/workspace/test-results/gtest_results.json
+      - GTEST_COLOR=1
+      - TEST_RESULTS_DIR=/workspace/test-results
+      - TEST_LOGS_DIR=/workspace/test-logs
+      - GTEST_BREAK_ON_FAILURE=0
+      - GTEST_PRINT_TIME=1
+    
+    # Default command: build and run tests with results saved
+    command: >
+      sh -c "
+        cd /workspace/ToF-drivers/tests &&
+        mkdir -p build && cd build &&
+        cmake .. && cmake --build . -j$(nproc) &&
+        echo 'Running V4L2 tests...' &&
+        ./driver-v4l2_test --device=/dev/video0 --gtest_output=json:/workspace/test-results/v4l2_results.json 2>&1 | tee /workspace/test-logs/v4l2_test.log &&
+        echo 'Running I2C tests...' &&
+        ./driver-i2c_test --device=/dev/i2c-1 --gtest_output=json:/workspace/test-results/i2c_results.json 2>&1 | tee /workspace/test-logs/i2c_test.log &&
+        echo 'Test results saved to /workspace/test-results/'
+      "
+    
+    # Restart policy
+    restart: "no"
+
+# Optional: separate services for individual test suites
+  v4l2-tests:
+    extends: tof-driver-tests
+    container_name: v4l2-tests
+    command: >
+      sh -c "
+        cd /workspace/ToF-drivers/tests/build &&
+        ./driver-v4l2_test --device=/dev/video0
+      "
+
+  i2c-tests:
+    extends: tof-driver-tests
+    container_name: i2c-tests
+    command: >
+      sh -c "
+        cd /workspace/ToF-drivers/tests/build &&
+        ./driver-i2c_test --device=/dev/i2c-1
+      "
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  test-results:
+    driver: local
+  test-logs:
+    driver: local
