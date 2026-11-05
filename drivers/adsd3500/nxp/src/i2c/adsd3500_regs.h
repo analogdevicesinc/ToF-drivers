@@ -11,7 +11,7 @@
 
 #include <linux/bitfield.h>
 
-#define DRIVER_VERSION                          	"6.1.0"
+#define DRIVER_VERSION                          	"6.1.1"
 
 #define GET_CHIP_ID_CMD						0x0112
 
