@@ -1871,7 +1871,6 @@ static int adsd3500_remove(struct i2c_client *client)
 	gpiod_put(adsd3500->irq_gpio);
 	debugfs_remove(adsd3500->debugfs);
 	v4l2_ctrl_handler_free(&adsd3500->ctrls);
-	pwm_put(adsd3500->pwm_fsync);
 	mutex_destroy(&adsd3500->lock);
 
 	pm_runtime_disable(adsd3500->dev);
